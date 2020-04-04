@@ -1,8 +1,14 @@
 package ru.netology.manager;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.netology.domain.Poster;
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Manager {
+
     private Poster[] films = new Poster[0];
     public void add(Poster film) {
         // создаём новый массив размером на единицу больше
@@ -21,6 +27,7 @@ public class Manager {
         for (int i = 0; i < result.length; i++) {
             int index = films.length - i - 1;
             result[i] = films[index];
+            System.out.println(films[i]);
         }
         return result;
     }
