@@ -1,49 +1,84 @@
 package ru.netology.manager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.domain.Poster;
+
+import ru.netology.domain.Film;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 public class ManagerTestNonEmptyWithSetup {
-    private Manager manager = new Manager(5);
-    private Poster first = new Poster(1, 1, "first", "comedy");
-    private Poster second = new Poster(2, 2, "second", "drama");
-    private Poster third = new Poster(3, 3, "third", "action");
-    private Poster fourth = new Poster(4, 4, "first", "comedy");
-    private Poster fifth = new Poster(5, 5, "second", "drama");
-    private Poster sixth = new Poster(6, 6, "third", "action");
-    private Poster seventh = new Poster(7, 7, "first", "comedy");
-    private Poster eighth = new Poster(8, 8, "second", "drama");
-    private Poster ninth = new Poster(9, 9, "third", "action");
-    private Poster tenth = new Poster(10, 10, "first", "comedy");
+
+    private Manager manager = new Manager();
+
+    private Film first = new Film(1, 1, "first", "comedy");
+    private Film second = new Film(2, 2, "second", "drama");
+    private Film third = new Film(3, 3, "third", "action");
+
 
     @BeforeEach
     public void setUp() {
         manager.add(first);
         manager.add(second);
         manager.add(third);
-        manager.add(fourth);
-        manager.add(fifth);
-        manager.add(sixth);
-        manager.add(seventh);
-        manager.add(eighth);
-        manager.add(ninth);
-        manager.add(tenth);
+
     }
+
     @Test
     public void shouldRemoveIfExists() {
         int idToRemove = 1;
         manager.removeById(idToRemove);
-        Poster[] actual = manager.getAll();
-        Poster[] expected = new Poster[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
-//    assertEquals(expected, actual);
+        Film[] actual = manager.getAll();
+        Film[] expected = new Film[]{third, second};
         assertArrayEquals(expected, actual);
     }
+
+//    @Test
+//    public void shouldNotRemoveIfNotExists() {
+//        int idToRemove = 4;
+//        manager.removeById(idToRemove);
+//        Film[] actual = manager.getAll();
+//        Film[] expected = new Film[]{third, second, first};
+//        assertArrayEquals(expected, actual);
+//    }
+
     @Test
-    public void shouldNotRemoveIfNotExists() {
-        int idToRemove = 4;
-        manager.removeById(idToRemove);
-        Poster[] actual = manager.getAll();
-        Poster[] expected = new Poster[]{tenth, ninth, eighth, seventh, sixth, fifth, third, second, first};
+    public void shouldGetFilms() {
+
+        Manager manager = new Manager(4);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+
+        Film[] actual = manager.getFilms();
+        Film[] expected = new Film[]{third, second, first};
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldGetFilmsIfOne() {
+
+        Manager manager = new Manager(1);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+
+        Film[] actual = manager.getFilms();
+        Film[] expected = new Film[]{third};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetNonFilms() {
+
+        Manager manager = new Manager(0);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+
+        Film[] actual = manager.getFilms();
+        Film[] expected = new Film[]{};
+        assertArrayEquals(expected, actual);
+    }
+
 }
