@@ -28,6 +28,11 @@ public class AfishaManager {
         repository.save(film);
     }
 
+    public Film[] removeAll() {
+        repository.removeAll();
+        return new Film[]{};
+    }
+
     public Film[] getAll() {
         Film[] films = repository.findAll();
         Film[] result = new Film[films.length];
@@ -40,6 +45,11 @@ public class AfishaManager {
 
     public void removeById(int id) {
         repository.removeById(id);
+    }
+
+    public Film[] findById(int id) {
+        repository.findById(id);
+        return new Film[0];
     }
 
 }

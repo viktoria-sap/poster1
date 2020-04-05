@@ -20,12 +20,18 @@ public class AfishaRepository {
         return films;
     }
 
-    public Film[] findById(int id) {
-        return films;
+    public void findById(int id) {
+        int index = 0;
+        for (Film film : films) {
+            if (film.getId() == id) {
+                id = film.getId();
+                index++;
+            }
+        }
     }
 
     public Film[] removeAll() {
-        films = new Film[0];
+        films = new Film[]{};
         return films;
     }
 
