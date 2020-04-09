@@ -83,20 +83,21 @@ public class AfishaManagerTestNonEmptyWithSetup {
         verify(repository).removeAll();
     }
 
-//    @Test
-//    public void shouldFindById() {
-//        Film[] returned = new Film[]{first, second, third};
-//        doReturn(returned).when(repository).findAll();
-//        doNothing().when(repository).findById(2);
-//
-//        afishaManager.findById(2);
-//        Film[] expected = new Film[]{2};
-//        Film[] actual = afishaManager.findById(2);
-//
-//        assertArrayEquals(expected, actual);
-//        // удостоверяемся, что заглушка была вызвана с нужным значением
-//        // но это уже проверка "внутренней" реализации
-//        verify(repository).removeAll();
-//    }
+    @Test
+    public void shouldFindById() {
+        int idToFind = 3;
+        // настройка заглушки
+        Film[] returned = new Film[]{third};
+        doReturn(returned).when(repository).findById(idToFind);
+
+        afishaManager.findById(idToFind);
+        Film[] expected = new Film[]{third};
+        Film[] actual = afishaManager.findById(idToFind);
+        assertArrayEquals(expected, actual);
+
+        // удостоверяемся, что заглушка была вызвана с нужным значением
+        // но это уже проверка "внутренней" реализации
+        verify(repository).removeById(idToFind);
+    }
 
 }
