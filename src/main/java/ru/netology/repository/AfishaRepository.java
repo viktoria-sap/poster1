@@ -29,9 +29,8 @@ public class AfishaRepository {
         return null;
     }
 
-    public Film[] removeAll() {
+    public void removeAll() {
         films = new Film[]{};
-        return films;
     }
 
     public void removeById(int id) {
@@ -45,6 +44,16 @@ public class AfishaRepository {
             }
         }
         films = tmp;
+    }
+
+    public Film[] getAll() {
+        Film[] films = findAll();
+        Film[] result = new Film[films.length];
+        for (int i = 0; i < result.length; i++) {
+            int index = films.length - i - 1;
+            result[i] = films[index];
+        }
+        return result;
     }
 
 }

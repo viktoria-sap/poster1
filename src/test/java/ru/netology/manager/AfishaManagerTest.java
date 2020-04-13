@@ -11,11 +11,11 @@ import ru.netology.domain.Film;
 import ru.netology.repository.AfishaRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-
-public class AfishaManagerTestNonEmptyWithSetup {
+public class AfishaManagerTest {
     @Mock
     private AfishaRepository repository;
     @InjectMocks
@@ -70,14 +70,8 @@ public class AfishaManagerTestNonEmptyWithSetup {
 
     @Test
     public void shouldRemoveAll() {
-        Film[] returned = new Film[]{};
-        doReturn(returned).when(repository).removeAll();
 
         afishaManager.removeAll();
-        Film[] expected = new Film[]{};
-        Film[] actual = afishaManager.removeAll();
-
-        assertArrayEquals(expected, actual);
         // удостоверяемся, что заглушка была вызвана с нужным значением
         // но это уже проверка "внутренней" реализации
         verify(repository).removeAll();
@@ -87,17 +81,15 @@ public class AfishaManagerTestNonEmptyWithSetup {
     public void shouldFindById() {
         int idToFind = 3;
         // настройка заглушки
-        Film[] returned = new Film[]{third};
-        doReturn(returned).when(repository).findById(idToFind);
+        doReturn(third).when(repository).findById(idToFind);
 
-        afishaManager.findById(idToFind);
-        Film[] expected = new Film[]{third};
-        Film[] actual = afishaManager.findById(idToFind);
-        assertArrayEquals(expected, actual);
+        Film expected = third;
+        Film actual = afishaManager.findById(idToFind);
+        assertEquals(expected, actual);
 
         // удостоверяемся, что заглушка была вызвана с нужным значением
         // но это уже проверка "внутренней" реализации
-        verify(repository).removeById(idToFind);
+        verify(repository).findById(idToFind);
     }
 
 }
